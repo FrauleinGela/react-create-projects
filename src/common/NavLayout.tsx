@@ -8,11 +8,11 @@ export const NavLayout = ({
   content: ReactNode;
 }) => {
   return (
-    <div className='flex'>
-      <nav className='p-4 flex border-r-2 border-sky-500 min-w-72 w-72 h-screen overflow-auto'>
+    <div className='grid grid-cols-[auto_1fr] w-full'>
+      <nav className='p-4 flex border-r-2 border-sky-500 h-screen overflow-auto w-72'>
         {navContent}
       </nav>
-      <div className='p-4 flex overflow-auto'>{content}</div>
+      <div className='p-4'>{content}</div>
     </div>
   );
 };
