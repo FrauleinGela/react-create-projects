@@ -3,6 +3,7 @@ import { NavLayout } from '../common/NavLayout';
 import { ProjectMenu } from './components/ProjectMenu/ProjectMenu';
 import { IProject } from './models/IProject';
 import { ProjectForm } from './components/ProjectForm/ProjectForm';
+import { Project } from './components/Project/Project';
 
 export const Projects = () => {
   const [projects, setProjects] = useState<IProject[]>([]);
@@ -18,6 +19,7 @@ export const Projects = () => {
 
   const handleSaveProject = (project: IProject) => {
     setProjects((prev) => [...prev, project]);
+    setSelectedProject(undefined);
   };
 
   const handleOnCancel = () => {
@@ -26,6 +28,11 @@ export const Projects = () => {
 
   const handleSelectProject = (project: IProject) => {
     setSelectedProject(project);
+  }
+
+  const handleDeleteProject = (project: IProject) => {
+    setProjects((prev)=> prev.filter(p => p.id !== project.id));
+    setSelectedProject(undefined);
   }
 
   if (selectedProject && !selectedProject.id) {
@@ -39,10 +46,7 @@ export const Projects = () => {
 
   if(selectedProject && selectedProject.id) {
     content = (
-      <div>
-        <h2>{selectedProject.name}</h2>
-        <p>{selectedProject.description}</p>
-      </div>
+      <Project project={selectedProject} onDelete={handleDeleteProject}/>
     )
   }
   
