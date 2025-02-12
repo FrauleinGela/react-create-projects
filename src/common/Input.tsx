@@ -21,7 +21,7 @@ export const Input = ({
         name={id}
         {...props}
         placeholder={label}
-        className='border rounded py-2 px-4'
+        className='border rounded py-2 px-4 w-full'
       />
     </div>
   );

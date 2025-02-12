@@ -1,5 +1,5 @@
 import { useProjectsContext } from '../../../hooks/useProjects';
-import { IProject } from '../../../models/IProject';
+import { IProject } from '../../../models/models';
 
 export const useProjectActions = (
   onSelectedProject: (project: IProject | null) => void

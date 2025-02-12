@@ -1,27 +1,52 @@
-import { IProject } from '../../models/IProject';
+import { useProjectsContext } from '../../hooks/useProjects';
+import { IProject, NewProject, ProjectsViewMode } from '../../models/models';
 import { ProjectDetails } from './components/ProjectDetails/ProjectDetails';
 import { ProjectForm } from './components/ProjectForm/ProjectForm';
 
 export const Project = ({
   selectedProject,
-  onSaveProject,
-  onCancel,
-  onDeleteProject,
+  onBackToProjects,
 }: {
-  selectedProject: IProject | null;
-  onSaveProject: (project: IProject) => void;
-  onCancel: () => void;
-  onDeleteProject: (project: IProject) => void;
+  selectedProject: IProject | NewProject;
+  onBackToProjects: () => void;
 }) => {
-  if (!selectedProject) {
-    return <div> Select a project </div>;
-  }
+  const { saveProject, deleteProject, setViewMode, viewMode } =
+    useProjectsContext();
 
-  if (!selectedProject.id) {
-    return <ProjectForm onSaveProject={onSaveProject} onCancel={onCancel} />;
-  }
+  const handleProjectAction = (
+    project: IProject | NewProject,
+    mode: ProjectsViewMode
+  ) => {
+    if (mode === 'delete') {
+      deleteProject(project as IProject);
+    } else {
+      saveProject(project, mode);
+    }
+    onBackToProjects();
+  };
 
-  return (
-    <ProjectDetails project={selectedProject} onDelete={onDeleteProject} />
-  );
+  const handleCancel = () => {
+    onBackToProjects();
+  };
+  if (viewMode) {
+    if (viewMode === 'view') {
+      return (
+        <ProjectDetails
+          project={selectedProject as IProject}
+          onEdit={() => setViewMode('edit')}
+        />
+      );
+    }
+
+    return (
+      viewMode && (
+        <ProjectForm
+          mode={viewMode}
+          project={selectedProject}
+          onProjectAction={handleProjectAction}
+          onCancel={handleCancel}
+        />
+      )
+    );
+  }
 };

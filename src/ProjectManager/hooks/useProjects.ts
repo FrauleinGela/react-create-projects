@@ -1,5 +1,14 @@
-import { useContext } from 'react';
-import { ProjectsContext } from '../contexts/projectsContext';
+import { createContext, useContext } from 'react';
+import { IProject, NewProject, ProjectsViewMode } from '../models/models';
+
+export interface IProjectsContext {
+  projects: IProject[];
+  setProjects: React.Dispatch<React.SetStateAction<IProject[]>>;
+  saveProject: (project: IProject | NewProject, mode: ProjectsViewMode) => void;
+  deleteProject: (project: IProject) => void;
+  viewMode: ProjectsViewMode | null;
+  setViewMode: React.Dispatch<React.SetStateAction<ProjectsViewMode | null>>;
+}
 
 export const useProjectsContext = () => {
   const context = useContext(ProjectsContext);
@@ -8,3 +17,7 @@ export const useProjectsContext = () => {
   }
   return context;
 };
+
+export const ProjectsContext = createContext<IProjectsContext | undefined>(
+  undefined
+);

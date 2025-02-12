@@ -1,15 +1,14 @@
-import { IProject } from '../../models/IProject';
+import { IProject } from '../../models/models';
 
 export const ProjectMenu = ({
   projects,
   onSelectProject,
+  onAddProject,
 }: {
   projects: IProject[];
   onSelectProject: (project: IProject) => void;
+  onAddProject: () => void;
 }) => {
-
-  const newProject = { id: '', name: '', description: '' };
-
   return (
     <div className='flex flex-col gap-4'>
       <strong className='w-full'>Your projects</strong>
@@ -27,7 +26,7 @@ export const ProjectMenu = ({
       </ul>
       <button
         className='h-10 bg-sky-500 text-white font-bold py-2 px-4 rounded hover:bg-sky-700 border border-sky-700'
-        onClick={() => onSelectProject(newProject)}
+        onClick={onAddProject}
       >
         + Add project
       </button>

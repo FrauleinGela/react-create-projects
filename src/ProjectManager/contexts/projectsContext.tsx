@@ -1,24 +1,29 @@
-import React, { createContext, useState } from 'react';
-import { IProject } from '../models/IProject';
+import { useState, ReactNode } from 'react';
+import { IProject, NewProject, ProjectsViewMode } from '../models/models';
+import { generateId } from '../../common/functions/generateId';
+import { ProjectsContext } from '../hooks/useProjects';
 
-interface IProjectsContext {
-  projects: IProject[];
-  setProjects: React.Dispatch<React.SetStateAction<IProject[]>>;
-  addProject: (project: IProject) => void;
-  deleteProject: (project: IProject) => void;
-}
-
-export const ProjectsContext = createContext<IProjectsContext | undefined>(undefined);
-
-export const ProjectsProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const ProjectsProvider = ({ children }: { children: ReactNode }) => {
   const [projects, setProjects] = useState<IProject[]>([]);
+  const [viewMode, setViewMode] = useState<ProjectsViewMode | null>(null);
 
-  const saveProject = (project: IProject) => {
-    setProjects((prev) => [...prev, project]);
+  const saveProject = (
+    project: IProject | NewProject,
+    mode: ProjectsViewMode
+  ) => {
+    setProjects((prevProjects) => {
+      const currentProject: IProject = (
+        mode === 'create' ? { ...project, id: generateId() } : project
+      ) as IProject;
+      if (mode === 'create') {
+        return [...prevProjects, currentProject];
+      }
+      return [
+        ...prevProjects.map((p) =>
+          p.id === currentProject.id ? currentProject : p
+        ),
+      ];
+    });
   };
 
   const deleteProject = (project: IProject) => {
@@ -29,7 +34,9 @@ export const ProjectsProvider = ({
     projects,
     setProjects,
     deleteProject,
-    addProject: saveProject,
+    saveProject,
+    viewMode,
+    setViewMode,
   };
 
   return (

@@ -1,27 +1,40 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useProjectsContext } from '../../hooks/useProjects';
-import { IProject } from '../../models/IProject';
+import { IProject, NewProject } from '../../models/models';
 import { Project } from '../Project/Project';
 import { ProjectMenu } from '../ProjectMenu/ProjectMenu';
 import { NavLayout } from '../../../common/NavLayout';
 
 export const Projects = () => {
-  const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
-  const { projects, addProject, deleteProject } = useProjectsContext();
+  const [selectedProject, setSelectedProject] = useState<
+    IProject | NewProject
+  >();
+  const { projects, setViewMode, viewMode } = useProjectsContext();
 
-  const handleSelectProject = (project: IProject | null) => {
+  const handleSelectProject = (project: IProject) => {
     setSelectedProject(project);
+    setViewMode('view');
   };
 
-  const handleSaveProject = (project: IProject) => {
-    addProject(project);
-    setSelectedProject(null);
+  const handleAddNewProject = () => {
+    const newProject: NewProject = {
+      name: '',
+      description: '',
+    };
+
+    setSelectedProject(newProject);
+    setViewMode('create');
   };
 
-  const handleDeleteProject = (project: IProject) => {
-    deleteProject(project);
-    setSelectedProject(null);
-  };
+  const content: ReactNode =
+    viewMode === null || !selectedProject ? (
+      <div> Select a project </div>
+    ) : (
+      <Project
+        selectedProject={selectedProject}
+        onBackToProjects={() => setViewMode(null)}
+      />
+    );
 
   return (
     <NavLayout
@@ -29,16 +42,10 @@ export const Projects = () => {
         <ProjectMenu
           projects={projects}
           onSelectProject={handleSelectProject}
+          onAddProject={handleAddNewProject}
         />
       }
-      content={
-        <Project
-          selectedProject={selectedProject}
-          onSaveProject={handleSaveProject}
-          onDeleteProject={handleDeleteProject}
-          onCancel={() => setSelectedProject(null)}
-        />
-      }
+      content={content}
     ></NavLayout>
   );
 };
