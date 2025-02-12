@@ -1,6 +1,6 @@
-import { IProject } from '../../models/IProject';
+import { IProject } from '../../../../models/IProject';
 
-export const Project = ({
+export const ProjectDetails = ({
   project,
   onDelete,
 }: {

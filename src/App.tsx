@@ -1,5 +1,5 @@
 import './App.css';
-import { Projects } from './projects/Projects';
+import { ProjectManager } from './ProjectManager/ProjectManager';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
         <h1>Projects</h1>
       </header>
       <main>
-        <Projects />
+        <ProjectManager />
       </main>
     </>
   );

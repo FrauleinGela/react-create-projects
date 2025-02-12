@@ -1,15 +1,15 @@
-import { MouseEventHandler } from 'react';
 import { IProject } from '../../models/IProject';
 
 export const ProjectMenu = ({
   projects,
-  onAddProject,
   onSelectProject,
 }: {
   projects: IProject[];
-  onAddProject: MouseEventHandler<HTMLButtonElement>;
   onSelectProject: (project: IProject) => void;
 }) => {
+
+  const newProject = { id: '', name: '', description: '' };
+
   return (
     <div className='flex flex-col gap-4'>
       <strong className='w-full'>Your projects</strong>
@@ -27,7 +27,7 @@ export const ProjectMenu = ({
       </ul>
       <button
         className='h-10 bg-sky-500 text-white font-bold py-2 px-4 rounded hover:bg-sky-700 border border-sky-700'
-        onClick={onAddProject}
+        onClick={() => onSelectProject(newProject)}
       >
         + Add project
       </button>
