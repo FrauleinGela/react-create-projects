@@ -5,7 +5,7 @@ import { ProjectsContext } from '../hooks/useProjects';
 
 export const ProjectsProvider = ({ children }: { children: ReactNode }) => {
   const [projects, setProjects] = useState<IProject[]>([]);
-  const [viewMode, setViewMode] = useState<ProjectsViewMode | null>(null);
+  const [viewMode, setViewMode] = useState<ProjectsViewMode>('none');
 
   const saveProject = (
     project: IProject | NewProject,
@@ -13,7 +13,7 @@ export const ProjectsProvider = ({ children }: { children: ReactNode }) => {
   ) => {
     setProjects((prevProjects) => {
       const currentProject: IProject = (
-        mode === 'create' ? { ...project, id: generateId() } : project
+        mode === 'create' ? { ...project, id: generateId() } : { ...project }
       ) as IProject;
       if (mode === 'create') {
         return [...prevProjects, currentProject];

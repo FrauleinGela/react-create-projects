@@ -1,38 +1,44 @@
 import { ReactNode, useState } from 'react';
 import { useProjectsContext } from '../../hooks/useProjects';
-import { IProject, NewProject } from '../../models/models';
+import { IProject, IProjectTask, NewProject } from '../../models/models';
 import { Project } from '../Project/Project';
 import { ProjectMenu } from '../ProjectMenu/ProjectMenu';
 import { NavLayout } from '../../../common/NavLayout';
 
 export const Projects = () => {
-  const [selectedProject, setSelectedProject] = useState<
-    IProject | NewProject
-  >();
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
+    null
+  );
   const { projects, setViewMode, viewMode } = useProjectsContext();
+  const foundProject = projects.find((p) => p.id === selectedProjectId);
+  const selectedProject: NewProject | IProject = foundProject ?? {
+    name: '',
+    description: '',
+    tasks: [],
+  };
 
   const handleSelectProject = (project: IProject) => {
-    setSelectedProject(project);
+    setSelectedProjectId(project.id);
     setViewMode('view');
   };
 
   const handleAddNewProject = () => {
-    const newProject: NewProject = {
-      name: '',
-      description: '',
-    };
-
-    setSelectedProject(newProject);
     setViewMode('create');
+    setSelectedProjectId(null);
+  };
+
+  const handleBackToProjects = () => {
+    setSelectedProjectId(null);
+    setViewMode('none');
   };
 
   const content: ReactNode =
-    viewMode === null || !selectedProject ? (
+    viewMode === 'none' ? (
       <div> Select a project </div>
     ) : (
       <Project
         selectedProject={selectedProject}
-        onBackToProjects={() => setViewMode(null)}
+        onBackToProjects={handleBackToProjects}
       />
     );
 

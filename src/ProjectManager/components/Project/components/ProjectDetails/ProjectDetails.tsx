@@ -1,4 +1,5 @@
 import { IProject } from '../../../../models/models';
+import { Tasks } from '../../../Tasks/Tasks';
 
 export const ProjectDetails = ({
   project,
@@ -8,17 +9,20 @@ export const ProjectDetails = ({
   onEdit: (project: IProject) => void;
 }) => {
   return (
-    <div>
-      <div className='flex items-center justify-between'>
-        <h2>{project.name}</h2>
-        <button
-          className='h-10 border-gray-400 text-sky-700 font-bold py-2 px-4 rounded border bg-white hover:bg-gray-100'
-          onClick={() => onEdit(project)}
-        >
-          Edit
-        </button>
+    <div className='flex flex-col gap-8'>
+      <div className='flex flex-col'>
+        <div className='flex items-center justify-between'>
+          <h2 className='font-bold text-2xl'>{project.name}</h2>
+          <button
+            className='h-10 border-gray-400 text-sky-700 font-bold py-2 px-4 rounded border bg-white hover:bg-gray-100'
+            onClick={() => onEdit(project)}
+          >
+            Edit
+          </button>
+        </div>
+        <p>{project.description}</p>
       </div>
-      <p>{project.description}</p>
+      <Tasks projectId={project.id} />
     </div>
   );
 };

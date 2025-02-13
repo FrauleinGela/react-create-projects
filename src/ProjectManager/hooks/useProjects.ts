@@ -6,8 +6,8 @@ export interface IProjectsContext {
   setProjects: React.Dispatch<React.SetStateAction<IProject[]>>;
   saveProject: (project: IProject | NewProject, mode: ProjectsViewMode) => void;
   deleteProject: (project: IProject) => void;
-  viewMode: ProjectsViewMode | null;
-  setViewMode: React.Dispatch<React.SetStateAction<ProjectsViewMode | null>>;
+  viewMode: ProjectsViewMode;
+  setViewMode: React.Dispatch<React.SetStateAction<ProjectsViewMode>>;
 }
 
 export const useProjectsContext = () => {

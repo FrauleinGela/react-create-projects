@@ -28,25 +28,22 @@ export const Project = ({
   const handleCancel = () => {
     onBackToProjects();
   };
-  if (viewMode) {
-    if (viewMode === 'view') {
-      return (
+
+  return (
+    <div className='flex justify-center'>
+      {viewMode === 'view' ? (
         <ProjectDetails
           project={selectedProject as IProject}
           onEdit={() => setViewMode('edit')}
         />
-      );
-    }
-
-    return (
-      viewMode && (
+      ) : (
         <ProjectForm
           mode={viewMode}
           project={selectedProject}
           onProjectAction={handleProjectAction}
           onCancel={handleCancel}
         />
-      )
-    );
-  }
+      )}
+    </div>
+  );
 };
