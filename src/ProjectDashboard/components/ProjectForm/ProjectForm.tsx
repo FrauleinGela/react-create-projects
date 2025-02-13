@@ -1,9 +1,9 @@
-import { Input } from '../../../../../common/Input';
+import { Input } from '../../../common/Input';
 import {
   IProject,
   NewProject,
   ProjectsViewMode,
-} from '../../../../models/models';
+} from '../../models/models';
 
 export const ProjectForm = ({
   onProjectAction,

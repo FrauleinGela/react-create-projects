@@ -7,7 +7,6 @@ export interface IProject {
   id: string;
   name: string;
   description: string;
-  tasks: IProjectTask[];
 }
 
 export type NewProject = Omit<IProject, 'id'>;

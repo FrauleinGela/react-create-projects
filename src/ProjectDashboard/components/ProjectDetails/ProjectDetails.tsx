@@ -1,5 +1,5 @@
-import { IProject } from '../../../../models/models';
-import { Tasks } from '../../../Tasks/Tasks';
+import { IProject } from '../../models/models';
+import { TasksDashboard } from '../TasksDashboard/TasksDashboard';
 
 export const ProjectDetails = ({
   project,
@@ -22,7 +22,7 @@ export const ProjectDetails = ({
         </div>
         <p>{project.description}</p>
       </div>
-      <Tasks projectId={project.id} />
+      <TasksDashboard projectId={project.id} />
     </div>
   );
 };

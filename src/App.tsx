@@ -1,5 +1,5 @@
 import './App.css';
-import { ProjectManager } from './ProjectManager/ProjectManager';
+import { ProjectProviderWrapper } from './ProjectDashboard/ProjectDashboard';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
         <h1>Projects</h1>
       </header>
       <main>
-        <ProjectManager />
+        <ProjectProviderWrapper />
       </main>
     </>
   );

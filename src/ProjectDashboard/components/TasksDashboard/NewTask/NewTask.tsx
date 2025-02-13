@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { generateId } from '../../../../common/functions/generateId';
 import { IProjectTask } from '../../../models/models';
+import { generateId } from '../../../../common/functions/generateId';
 
 export const NewTask = ({
   projectId,

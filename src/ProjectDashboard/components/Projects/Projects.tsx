@@ -1,6 +1,6 @@
 import { IProject } from '../../models/models';
 
-export const ProjectMenu = ({
+export const Projects = ({
   projects,
   onSelectProject,
   onAddProject,

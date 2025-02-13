@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { IProjectTask } from '../../../models/models';
+import { IProjectTask } from '../models/models';
 
 export interface ITasksContext {
   tasks: IProjectTask[];

@@ -1,11 +1,10 @@
 import { useState, ReactNode } from 'react';
 import { IProject, NewProject, ProjectsViewMode } from '../models/models';
 import { generateId } from '../../common/functions/generateId';
-import { ProjectsContext } from '../hooks/useProjects';
+import { ProjectsContext } from '../hooks/useProjectsContext';
 
 export const ProjectsProvider = ({ children }: { children: ReactNode }) => {
   const [projects, setProjects] = useState<IProject[]>([]);
-  const [viewMode, setViewMode] = useState<ProjectsViewMode>('none');
 
   const saveProject = (
     project: IProject | NewProject,
@@ -35,8 +34,6 @@ export const ProjectsProvider = ({ children }: { children: ReactNode }) => {
     setProjects,
     deleteProject,
     saveProject,
-    viewMode,
-    setViewMode,
   };
 
   return (
